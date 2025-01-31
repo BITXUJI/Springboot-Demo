@@ -17,5 +17,6 @@
         "jacoco.xml",
         "coverage.cobertura.xml",
         "jacocoTestReport.xml"
-    ]
+    ],
+    "coverage-gutters.highlightlight":"rgba(0, 255, 0, 1)"
 }
