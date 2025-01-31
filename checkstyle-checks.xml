@@ -361,7 +361,10 @@
                 value="BeforeAll, AfterAll, BeforeEach, AfterEach"/>
     </module>
     <module name="FinalClass"/>
-    <module name="HideUtilityClassConstructor"/>
+    <module name="HideUtilityClassConstructor">
+      <!-- To configure the check to ignore classes annotated with SpringBootApplication -->
+      <property name="ignoreAnnotatedBy" value="SpringBootApplication" />
+    </module>
     <module name="InnerTypeLast"/>
     <module name="InterfaceIsType"/>
     <module name="MutableException"/>
@@ -743,7 +746,8 @@
     <module name="SingleLineJavadoc"/>
     <module name="WriteTag"/>
     <module name="SummaryJavadoc"/>
-    <module name="RequireEmptyLineBeforeBlockTagGroup"/>
+    <!-- Javadoc tag '@param' 前面应有一个空行。 -->
+    <!-- <module name="RequireEmptyLineBeforeBlockTagGroup"/> -->
 
     <!-- Metrics -->
     <module name="BooleanExpressionComplexity">
@@ -817,7 +821,8 @@
     </module>
     <module name="TrailingComment"/>
     <module name="UncommentedMain">
-      <property name="excludedClasses" value="\.(Main|JavadocPropertiesGenerator)$"/>
+    <!-- 未注释的Main方法。 追加Application作为例外 -->
+      <property name="excludedClasses" value="\.(DemoApplication|Main|JavadocPropertiesGenerator)$"/>
     </module>
     <module name="UpperEll"/>
 

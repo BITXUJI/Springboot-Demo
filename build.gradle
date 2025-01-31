@@ -44,7 +44,7 @@ checkstyle {
 	checkstyleTest {
 		source 'src/test/java'
 	}
-	checkstyleTest.enabled = false
+	checkstyleTest.enabled = true
 	configProperties  =[
 		'checkstyle.java.version': '21'	
 	]
@@ -56,7 +56,6 @@ tasks.withType(Checkstyle) {
 		xml.required = true
 		html.required = true
 	}
-	
 }
 
 jacoco {
@@ -122,11 +121,13 @@ pmd {
 		property "sonar.tests", "src/test/java"
 		property "sonar.java.source", "21"
 		property "sonar.java.test.source", "21"
+		property "sonar.java.binaries", "build/classes/java/main"
+        property "sonar.java.test.binaries", "build/classes/java/test"
 		property "sonar.coverage.jacoco.enabled", "true"	
 		property "sonar.java.coveragePlugin", "jacoco"
-		property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"
-		property "sonar.java.pmd.xmlReportPaths", "${project.buildDir}/reports/pmd/main.xml"
-		property "sonar.java.checkstyle.xmlReportPaths", "${project.buildDir}/reports/checkstyle/main.xml"
-		property "sonar.java.spotbugs.xmlReportPaths", "${project.buildDir}/reports/spotbugs/main.xml"	
+		property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml"
+		property "sonar.java.pmd.reportPaths", "build/reports/pmd/main.xml"
+		property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/main.xml"
+		property "sonar.java.spotbugs.reportPaths", "build/reports/spotbugs/main.xml"	
 	}
 }
