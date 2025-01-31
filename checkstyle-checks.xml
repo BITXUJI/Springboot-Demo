@@ -16,7 +16,7 @@
   <metadata name="org.checkstyle.principle.description"
             value="In our config we should use all Checks that Checkstyle has"/>
 
-  <property name="cacheFile" value="${checkstyle.cache.file}"/>
+  <!-- <property name="cacheFile" value="${checkstyle.cache.file}"/> -->
 
   <property name="severity" value="error"/>
 
@@ -34,7 +34,7 @@
     <property name="acceptOnMatch" value="false"/>
   </module>
   <module name="SuppressionFilter">
-    <property name="file" value="${checkstyle.suppressions.file}"/>
+    <!-- <property name="file" value="${checkstyle.suppressions.file}"/> -->
   </module>
   <!-- Tone down the checking for test code -->
   <module name="SuppressionSingleFilter">
@@ -68,13 +68,13 @@
   </module>
   <!-- Headers -->
   <module name="Header">
-    <property name="headerFile" value="${checkstyle.header.file}"/>
+    <!-- <property name="headerFile" value="${checkstyle.header.file}"/> -->
     <property name="fileExtensions" value="java, g4"/>
     <property name="id" value="header"/>
   </module>
   <module name="RegexpHeader">
     <property name="id" value="regexpHeader"/>
-    <property name="headerFile" value="${checkstyle.regexp.header.file}"/>
+    <!-- <property name="headerFile" value="${checkstyle.regexp.header.file}"/> -->
     <property name="fileExtensions" value="java, g4"/>
   </module>
 
@@ -624,7 +624,7 @@
       <property name="onCommentFormat" value="CSON\: .*"/>
     </module>
     <module name="SuppressionXpathFilter">
-      <property name="file" value="${checkstyle.suppressions-xpath.file}"/>
+      <!-- <property name="file" value="${checkstyle.suppressions-xpath.file}"/> -->
     </module>
     <!-- Tone down the checking for test code -->
     <module name="SuppressionXpathSingleFilter">
@@ -686,12 +686,12 @@
     <module name="IllegalImport"/>
     <module name="ImportControl">
       <property name="id" value="ImportControlMain"/>
-      <property name="file" value="${checkstyle.importcontrol.file}"/>
+      <!-- <property name="file" value="${checkstyle.importcontrol.file}"/> -->
       <property name="path" value="^.*[\\/]src[\\/]main[\\/].*$"/>
     </module>
     <module name="ImportControl">
       <property name="id" value="ImportControlTest"/>
-      <property name="file" value="${checkstyle.importcontroltest.file}"/>
+      <!-- <property name="file" value="${checkstyle.importcontroltest.file}"/> -->
       <property name="path" value="^.*[\\/]src[\\/](test|it)[\\/].*$"/>
     </module>
     <module name="ImportOrder">

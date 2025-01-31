@@ -7,5 +7,15 @@
     "java.checkstyle.configuration": "checkstyle-checks.xml",
     "java.checkstyle.version": "10.21.2",
     "editor.formatOnSave": true,
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "coverage-gutters.showLineCoverage": true,
+    "coverage-gutters.coverageFileNames":[
+        "lcov.info",
+        "cov.xml",
+        "coverage.xml",
+        "cobertura.xml",
+        "jacoco.xml",
+        "coverage.cobertura.xml",
+        "jacocoTestReport.xml"
+    ]
 }

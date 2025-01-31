@@ -3,30 +3,19 @@ package com.example.demo;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 @SpringBootTest
 class DemoApplicationTests {
 
-    /**
-     * Tests that the application context can be loaded without errors.
-     */
     @Test
     void contextLoads() {
+        // 只要上下文能正常启动，不抛出异常就代表测试通过
     }
 
-    /**
-     * Tests that the code runs without crashing.
-     */
     @Test
-    public void test() {
-        System.out.println("test");
+    void testMainMethod() {
+        // 调用 main 方法以覆盖启动类的代码
+        assertDoesNotThrow(() -> DemoApplication.main(new String[] {}));
     }
-
-    /**
-     * Tests that the second test method executes without any issues.
-     */
-    @Test
-    public void test2() {
-        System.out.println("test2");
-    }
-
 }
