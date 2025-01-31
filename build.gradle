@@ -1,0 +1,147 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.2-SNAPSHOT'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'checkstyle'
+	id 'jacoco' 
+	id 'org.owasp.dependencycheck' version '8.4.0'
+	// id 'org.liquibase.gradle' version '2.2.0'
+	id 'com.github.ben-manes.versions' version '0.47.0'
+	// id 'sonarqube' version '4.0.0.2929'
+	id 'pmd'
+	id 'com.diffplug.spotless' version '6.21.0'
+	id 'org.asciidoctor.jvm.convert' version '3.3.2'
+
+	id 'org.liquibase.gradle' version '2.2.0'
+	id 'com.github.spotbugs' version '5.0.13'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '21'
+}
+
+repositories {
+	mavenCentral()
+	maven { url = 'https://repo.spring.io/milestone' }
+	maven { url = 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+		
+}
+checkstyle {
+	toolVersion  = '10.21.0'
+	configFile = file("$rootDir/checkstyle-checks.xml")
+	ignoreFailures = true
+	checkstyleMain {
+		source 'src/main/java'
+	}
+	checkstyleTest {
+		source 'src/test/java'
+	}
+	checkstyleTest.enabled = false
+}
+
+jacoco {
+	toolVersion = "0.8.8"
+}
+jacocoTestReport {
+	reports {	
+		xml.required = true		
+		csv.required = false
+		html.required = true	
+	}
+	test.finalizedBy jacocoTestReport
+
+}
+
+spotless {
+	java {
+		googleJavaFormat()
+	}
+}
+
+spotbugs {
+	toolVersion = "4.7.3"
+	ignoreFailures = true
+	effort = "max"
+	reportLevel = "low"
+}
+
+
+
+pmd {	
+	toolVersion = "6.55.0"
+	sourceSets = [sourceSets.main]
+	ignoreFailures = true
+	consoleOutput = true
+	ruleSets = [
+		"java-basic",
+		"java-braces",
+		"java-clone",
+		"java-codesize",
+		"java-continuations",
+		"java-design",
+		"java-empty",
+		"java-finalizers",
+		"java-imports",
+		"java-junit",
+		"java-metrics",
+		"java-optimizations",
+		"java-strictexception",
+		"java-strings",
+		"java-typeresolution"
+	]
+}
+
+liquibase {	
+	activities {
+		main {
+			changeLogFile "src/main/resources/db/changelog/db.changelog-master.yaml"
+			url "jdbc:postgresql://localhost:5432/postgres"
+			username "postgres"
+			password "postgres"
+		}
+	}
+}
+
+// sonarqube {
+	
+// 	// https://docs.sonarqube.org/latest/analysis/analysis-configuration/
+// 	// https://docs.sonarqube.org/latest/analysis/analysis-properties/
+
+// 	properties {
+// 		property "sonar.host.url", "https://sonarcloud.io"
+// 		property "sonar.projectKey", "com.example.demo"
+// 		property "sonar.login", "sq_2c7f6d3a9d4d2e8b7e1a"
+// 		property "sonar.sources", "src/main/java"
+// 		property "sonar.tests", "src/test/java"
+// 		property "sonar.java.source", "21"
+// 		property "sonar.java.test.source", "21"
+// 		property "sonar.coverage.jacoco.enabled", "true"	
+// 		property "sonar.java.coveragePlugin", "jacoco"
+// 		property "sonar.coverage.exclusions", "**/com/example/demo/DemoApplication.java"
+// 		property "sonar.coverage.jacoco.htmlReportPaths", "${project.buildDir}/reports/jacoco/test/html"
+// 		property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+// 		property "sonar.coverage.jacoco.htmlReportPaths", "${project.buildDir}/reports/jacoco/test/html"
+// 		property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+// 		property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"	
+// 		property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+// 		property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+// 		property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+
+
+// 	}
+// }
