@@ -26,14 +26,37 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// Because container outside (Tomcat) will provide servlet container, so we need to set embedded Tomcat to provided.
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	testImplementation 'org.mockito:mockito-core:5.15.2'  // newest version until 2025/02/01
+	testImplementation 'org.mockito:mockito-junit-jupiter:5.15.2' // newest version until 2025/02/01
 }
 
-// tasks.named('test') {
-// 	useJUnitPlatform()		
-// }
+// Disable bootWar which is a executable war file
+//  demo-0.0.1-SNAPSHOT.war is disabled by this setting below
+// Note that in build/libs folder 
+// (demo-0.0.1-SNAPSHOT.war is a executable war file which can be execuated by java -jar demo-0.0.1-SNAPSHOT.war)
+// Before: there is	a demo-0.0.1-SNAPSHOT.war which is created by bootWar 
+// Now: demo-0.0.1-SNAPSHOT.war is disappeared
+bootWar {
+    enabled = false
+}
+
+// Enable war which is a deployable war file
+war {
+    enabled = true	
+	// set archive name from demo-0.0.1-SNAPSHOT-plain.war to ROOT.war
+	// in order to deploy to Tomcat as ROOT
+	// so that we can access http://localhost:8080 instead of http://localhost:8080/demo-0.0.1-SNAPSHOT-plain
+	// Note that in build/libs folder 
+	// (demo-0.0.1-SNAPSHOT-plain.war is for deploying to Tomcat/webapps folder ) 
+	// Before: there is a demo-0.0.1-SNAPSHOT-plain.war which is created by war by default
+	// Now: there is a ROOT.war 
+	archiveFileName = 'ROOT.war'
+}
 
 test {
 	finalizedBy jacocoTestReport
