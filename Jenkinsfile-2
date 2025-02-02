@@ -12,7 +12,7 @@ pipeline {
         withSonarQubeEnv(installationName: 'sonarqube-server1') { 
           script {
             sh 'chmod +x gradlew'
-            sh './gradlew clean build sonar'
+            sh "./gradlew clean build sonar -Dsonar.projectKey=${env.SONAR_PROJECT_KEY}"
             def sonarUrl = "${env.SONAR_HOST_URL}/dashboard?id=${env.SONAR_PROJECT_KEY}"
             echo "SonarQube Dashboard: ${sonarUrl}"
           }
