@@ -184,22 +184,21 @@ tasks.withType(Pmd) {
 }
 
 // sonarqube configuration 
-def sonar_token = System.getenv("SONAR_TOKEN")
-// Vscode OUTPUT window SONAR_TOKEN is shown as text
-println("SONAR_TOKEN: " + sonar_token)
+// def sonar_token = System.getenv("SONAR_TOKEN")
+// // Vscode OUTPUT window SONAR_TOKEN is shown as text
+// println("SONAR_TOKEN: " + sonar_token)
 
 
 sonarqube {
-
 	properties {
 		// sonar host url
-		property "sonar.host.url", "http://localhost:9000/"
+		// property "sonar.host.url", "http://localhost:9000/"
 		// sonar project key
 		property "sonar.projectKey", "com.example.demo"
 		// sonar project name
 		property "sonar.projectName", "demo"
 		// Remember: sonar.login and sonar password is deprecated, use sonar.token instead.
-		property "sonar.token", sonar_token
+		// property "sonar.token", sonar_token
 		property "sonar.sources", "src/main/java"
 		property "sonar.tests", "src/test/java"
 		property "sonar.java.source", "21"
