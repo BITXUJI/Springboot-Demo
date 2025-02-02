@@ -194,7 +194,7 @@ sonarqube {
 		// sonar host url
 		// property "sonar.host.url", "http://localhost:9000/"
 		// sonar project key
-		property "sonar.projectKey", "com.example.demo"
+		property "sonar.projectKey", "Springboot-Demo"
 		// sonar project name
 		property "sonar.projectName", "demo"
 		// Remember: sonar.login and sonar password is deprecated, use sonar.token instead.
