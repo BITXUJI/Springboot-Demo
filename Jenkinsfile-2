@@ -3,13 +3,20 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
+  environment {
+    SONAR_PROJECT_KEY='Springboot-Demo'
+  }
   stages {
     stage('Scan') {
       steps {
         withSonarQubeEnv(installationName: 'sonarqube-server1') { 
-          sh 'chmod +x gradlew'
-          sh './gradlew clean build sonar'
-          echo "${env.SONAR_HOST_URL}/dashboard?id=${env.SONAR_PROJECT_KEY}"
+          script {
+            sh 'chmod +x gradlew'
+            sh './gradlew clean build sonar'
+            def sonarUrl = "${env.SONAR_HOST_URL}/dashboard?id=${env.SONAR_PROJECT_KEY}"
+            echo "SonarQube Dashboard: ${sonarUrl}"
+          }
+
         }
       }
     }
