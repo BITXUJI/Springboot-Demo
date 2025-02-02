@@ -37,8 +37,8 @@ pipeline {
     stage("Quality Gate") {
       steps {
         script {
-            echo "Received Quality Gate Status: ${qualityGateStatus}"
-            if ("${qualityGateStatus}" == "OK") {
+            echo "Received Quality Gate Status: ${params.qualityGateStatus}"
+            if (params.qualityGateStatus == "OK") {
                 echo "Quality Gate Passed!"
             } else {
                 error "Quality Gate Failed!"
