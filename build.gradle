@@ -203,11 +203,11 @@ sonarqube {
 		property "sonar.tests", "src/test/java"
 		property "sonar.java.source", "21"
 		property "sonar.java.test.source", "21"
-		property "sonar.java.binaries", "build/classes/java/main"
-        property "sonar.java.test.binaries", "build/classes/java/test"
+		property "sonar.java.binaries", "$buildDir/classes/java/main"
+        property "sonar.java.test.binaries", "$buildDir/classes/java/test"
 
 		// JUnit - Test results
-		property "sonar.junit.reportPaths", "build/test-results/test"
+		property "sonar.junit.reportPaths", "$buildDir/test-results/test"
 		
 		// Coverage exclusions - exclude files from being scanned (supported by default)
 		property "sonar.coverage.exclusions", "**/com/example/demo/controller/**" 
@@ -223,25 +223,25 @@ sonarqube {
 		// Comma-delimited list of report files (supported by default)
 		// Example: property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml" 
 		// Wildcard pattern for report files (supported by default)
-		property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/*.xml"
+		property "sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/jacoco/test/*.xml"
 
 		// Pmd - Code quality
 		// Remember: (Not supported) Wildcard pattern for report files (not supported) 
 		// (Not supported) example: property "sonar.java.pmd.reportPaths", "build/reports/pmd/*.xml"
 		// Comma-delimited list of report files	(supported by default)
-		property "sonar.java.pmd.reportPaths", "build/reports/pmd/main.xml"
+		property "sonar.java.pmd.reportPaths", "$buildDir/reports/pmd/main.xml"
 		
 		// Checkstyle - Code style
 		// Remember: (Not supported) Wildcard pattern for report files (not supported) 
 		// (Not supported) example: property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/*.xml"
 		// Comma-delimited list of report files	(supported by default)
-		property "sonar.java.checkstyle.reportPaths", "build/reports/checkstyle/main.xml,build/reports/checkstyle/test.xml"
+		property "sonar.java.checkstyle.reportPaths", "$buildDir/reports/checkstyle/main.xml,$buildDir/reports/checkstyle/test.xml"
 		
 		// Spotbugs - Static code analysis
 		// Remember: (Not supported) Wildcard pattern for report files (not supported)
 		// (Not supported) example: property "sonar.java.spotbugs.reportPaths", "build/reports/spotbugs/*.xml"	
 		// Comma-delimited list of report files	(supported by default)
-		property "sonar.java.spotbugs.reportPaths", "build/reports/spotbugs/main.xml,build/reports/spotbugs/test.xml"
+		property "sonar.java.spotbugs.reportPaths", "$buildDir/reports/spotbugs/main.xml,$buildDir/reports/spotbugs/test.xml"
 
 	}
 }
