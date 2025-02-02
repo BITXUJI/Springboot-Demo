@@ -7,10 +7,15 @@ pipeline {
     stage('Scan') {
       steps {
         withSonarQubeEnv(installationName: 'sonarqube-server1') { 
-          sh 'gradle clean build sonar'
+          sh 'chmod +x gradlew'
+          sh './gradlew clean build sonar'
         }
       }
     }
+    // you need to set a url endwith sonarqube-webhook in Administration -> Configuration -> Webhooks 
+    // to get the build status back to Jenkins
+    // secret is not required
+    //Example: http://your-jenkins-server:port/sonarqube-webhook/
     stage("Quality Gate") {
       steps {
         timeout(time: 10, unit: 'MINUTES') {
