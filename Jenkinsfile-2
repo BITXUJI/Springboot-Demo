@@ -9,6 +9,7 @@ pipeline {
         withSonarQubeEnv(installationName: 'sonarqube-server1') { 
           sh 'chmod +x gradlew'
           sh './gradlew clean build sonar'
+          echo "${env.SONAR_HOST_URL}/dashboard?id=${env.SONAR_PROJECT_KEY}"
         }
       }
     }
