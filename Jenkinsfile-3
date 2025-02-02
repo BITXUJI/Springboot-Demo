@@ -1,0 +1,51 @@
+pipeline {
+  agent { label 'docker-gradle8-jdk21-corretto' }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  environment {
+    SONAR_PROJECT_KEY='Springboot-Demo'
+    SONAR_HOST_URL='http://localhost:9000'
+  }
+  triggers {
+        GenericTrigger(
+            genericVariables: [
+                [key: 'qualityGateStatus', value: '$.qualityGate.status']
+            ],
+            causeString: 'Triggered by SonarQube webhook',
+            token: 'u3YgJL449AS33RlBF6Pja77BV75eueYJiBP5Jtawtber3fTo3Z2LxfMJJV9a8TYJ', 
+            printPostContent: true,
+            silentResponse: false
+        )
+    }
+  stages {
+    stage('Scan') {
+      steps {
+         withCredentials([string(credentialsId: 'jenkins-sonar', variable: 'SONAR_TOKEN')]) {
+          script {
+            sh 'chmod +x gradlew'
+            sh "./gradlew clean build sonar -Dsonar.projectKey=${env.SONAR_PROJECT_KEY} -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.token=${SONAR_TOKEN}"
+            def sonarUrl = "${env.SONAR_HOST_URL}/dashboard?id=${env.SONAR_PROJECT_KEY}"
+            echo "SonarQube Dashboard: ${sonarUrl}"
+          }
+        }
+      }
+    }
+    // you need to set a url endwith generic-webhook-trigger in Administration -> Configuration -> Webhooks 
+    // to get the build status back to Jenkins
+    // secret is not required
+    //Example: http://your-jenkins-server:port/generic-webhook-trigger/invoke?token=u3YgJL449AS33RlBF6Pja77BV75eueYJiBP5Jtawtber3fTo3Z2LxfMJJV9a8TYJ
+    stage("Quality Gate") {
+      steps {
+        script {
+            echo "Received Quality Gate Status: ${qualityGateStatus}"
+            if ("${qualityGateStatus}" == "OK") {
+                echo "Quality Gate Passed!"
+            } else {
+                error "Quality Gate Failed!"
+            }
+        }
+      }
+    }
+  }
+}

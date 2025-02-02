@@ -16,7 +16,6 @@ pipeline {
             def sonarUrl = "${env.SONAR_HOST_URL}/dashboard?id=${env.SONAR_PROJECT_KEY}"
             echo "SonarQube Dashboard: ${sonarUrl}"
           }
-
         }
       }
     }
