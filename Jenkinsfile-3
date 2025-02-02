@@ -3,10 +3,6 @@ pipeline {
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
-  environment {
-    SONAR_PROJECT_KEY='Springboot-Demo'
-    SONAR_HOST_URL='http://192.168.3.11:9000'
-  }
   triggers {
         GenericTrigger(
             genericVariables: [
@@ -19,18 +15,6 @@ pipeline {
         )
     }
   stages {
-    stage('Scan') {
-      steps {
-         withCredentials([string(credentialsId: 'jenkins-sonar', variable: 'SONAR_TOKEN')]) {
-          script {
-            sh 'chmod +x gradlew'
-            sh "./gradlew clean build sonar -Dsonar.projectKey=${env.SONAR_PROJECT_KEY} -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.token=${SONAR_TOKEN}"
-            def sonarUrl = "${env.SONAR_HOST_URL}/dashboard?id=${env.SONAR_PROJECT_KEY}"
-            echo "SonarQube Dashboard: ${sonarUrl}"
-          }
-        }
-      }
-    }
     // you need to set a url endwith generic-webhook-trigger in Administration -> Configuration -> Webhooks 
     // to get the build status back to Jenkins
     // secret is not required
