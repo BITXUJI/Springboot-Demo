@@ -7,7 +7,7 @@ pipeline {
     stage('Scan') {
       steps {
         withSonarQubeEnv(installationName: 'sonarqube-server1') { 
-          sh './gradlew clean build sonar'
+          sh 'gradle clean build sonar'
         }
       }
     }
