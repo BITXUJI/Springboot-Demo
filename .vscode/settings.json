@@ -48,5 +48,9 @@
     }
   },
   //default terminal
-  "terminal.integrated.defaultProfile.windows": "Command Prompt" // "PowerShell","Git Bash","Command Prompt"
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "sonarlint.connectedMode.project": {
+    "connectionId": "http://192.168.3.11:9000",
+    "projectKey": "Springboot-Demo"
+  } // "PowerShell","Git Bash","Command Prompt"
 }
