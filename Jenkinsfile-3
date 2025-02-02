@@ -5,7 +5,7 @@ pipeline {
   }
   environment {
     SONAR_PROJECT_KEY='Springboot-Demo'
-    SONAR_HOST_URL='http://localhost:9000'
+    SONAR_HOST_URL='http://192.168.3.11:9000'
   }
   triggers {
         GenericTrigger(
@@ -13,7 +13,6 @@ pipeline {
                 [key: 'qualityGateStatus', value: '$.qualityGate.status']
             ],
             causeString: 'Triggered by SonarQube webhook',
-            token: 'u3YgJL449AS33RlBF6Pja77BV75eueYJiBP5Jtawtber3fTo3Z2LxfMJJV9a8TYJ', 
             printPostContent: true,
             silentResponse: false
         )
@@ -34,7 +33,7 @@ pipeline {
     // you need to set a url endwith generic-webhook-trigger in Administration -> Configuration -> Webhooks 
     // to get the build status back to Jenkins
     // secret is not required
-    //Example: http://your-jenkins-server:port/generic-webhook-trigger/invoke?token=u3YgJL449AS33RlBF6Pja77BV75eueYJiBP5Jtawtber3fTo3Z2LxfMJJV9a8TYJ
+    //Example: http://your-jenkins-server:port/generic-webhook-trigger/invoke
     stage("Quality Gate") {
       steps {
         script {
