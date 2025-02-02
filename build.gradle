@@ -196,7 +196,7 @@ sonarqube {
 		// sonar project key
 		// property "sonar.projectKey", "Springboot-Demo"
 		// sonar project name
-		property "sonar.projectName", "Springboot-Demo"
+		property "sonar.projectName", "Springboot-Demo-0.01"
 		// Remember: sonar.login and sonar password is deprecated, use sonar.token instead.
 		// property "sonar.token", sonar_token
 		property "sonar.sources", "src/main/java"
