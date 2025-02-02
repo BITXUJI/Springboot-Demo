@@ -1,0 +1,22 @@
+pipeline {
+  agent { label 'docker-gradle8-jdk21-corretto' }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  stages {
+    stage('Scan') {
+      steps {
+        withSonarQubeEnv(installationName: 'sonarqube-server1') { 
+          sh './gradelw clean build sonar'
+        }
+      }
+    }
+    stage("Quality Gate") {
+      steps {
+        timeout(time: 2, unit: 'MINUTES') {
+          waitForQualityGate abortPipeline: true
+        }
+      }
+    }
+  }
+}
