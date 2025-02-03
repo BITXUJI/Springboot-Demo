@@ -72,7 +72,13 @@ war {
 	archiveFileName = 'ROOT.war'
 	// if classpath is files() then WEB-INF folder will disappear
 	// classpath = files() 
-	
+    manifest {
+        attributes(
+            // let all the dependencies files in runtimeClasspath （add lib/ in front） as Class-Path attribute.
+            // Remember: generated Class-Path attribute is a whitespace-delimited list of paths
+            'Class-Path': configurations.runtimeClasspath.files.collect { "lib/${it.name}" }.join(' ')
+        )
+    }
 }
 
 test {
@@ -261,6 +267,40 @@ sonarqube {
 		property "sonar.java.spotbugs.reportPaths", "$buildDir/reports/spotbugs/main.xml,$buildDir/reports/spotbugs/test.xml"
 
 	}
+}
+
+task listUniqueRuntimeJars {
+    doLast {
+        // get runtimeClasspath artifacts
+        def jars = configurations.runtimeClasspath.resolvedConfiguration.resolvedArtifacts.collect { it.file.name }.unique().sort()
+        println "Unique runtime JARs:"
+        jars.each { println it }
+    }
+}
+
+task printUniqueDependencies {
+    doLast {
+        // use a set to remove duplicates
+        def dependencySet = new HashSet<String>()
+
+        // go through all configurations
+        configurations.each { config ->
+            if (config.canBeResolved) {
+                try {
+                    config.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+                        def depCoordinate = "${artifact.moduleVersion.id.group}:${artifact.moduleVersion.id.name}:${artifact.moduleVersion.id.version}"
+                        dependencySet << depCoordinate
+                    }
+                } catch(Exception e) {
+                    println "Cannot resolve ${config.name}: ${e.message}"
+                }
+            }
+        }
+
+        // sort and print
+        println "\n every unique dependency:"
+        dependencySet.sort().each { println it }
+    }
 }
 
 // read org.gradle.jvmargs variable from gradle.properties
