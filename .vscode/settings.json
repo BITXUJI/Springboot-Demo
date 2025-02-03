@@ -30,23 +30,28 @@
   ],
   //color of coverage gutters highlight
   "coverage-gutters.highlightlight": "rgba(0, 255, 0, 1)",
-  "terminal.integrated.profiles.windows": {
-    "Command Prompt": {
-      "path": "C:/Windows/System32/cmd.exe",
-      // change encoding to UTF-8
-      "args": ["/K", "chcp 65001"]
-    },
-    "PowerShell": {
-      "path": "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
-      // change encoding to UTF-8
-      "args": ["-NoExit", "-Command", "chcp 65001"]
-    },
-    "Git Bash": {
-      "path": "E:/Git/bin/bash.exe", // "path":"C:/Program Files/Git/bin/bash.exe",
-      // change encoding to UTF-8
-      "args": ["--login", "-i", "-c", "chcp.com 65001"]
-    }
-  },
+  // written below is not needed, and change encoding to UTF-8 is another way 
+  // when your erea is China or Japan for example, 
+  // you need to change you windows system settings to change encoding 
+  // (Beta version: use Unicode UTF-8 to provide global language support)
+
+  // "terminal.integrated.profiles.windows": {
+  //   "Command Prompt": {
+  //     "path": "C:/Windows/System32/cmd.exe",
+  //     // change encoding to UTF-8
+  //     "args": ["/K", "chcp 65001"]
+  //   },
+  //   "PowerShell": {
+  //     "path": "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+  //     // change encoding to UTF-8 
+  //     "args": ["-NoExit", "-Command", "chcp 65001"]
+  //   },
+  //   "Git Bash": {
+  //     "path": "E:/Git/bin/bash.exe", // "path":"C:/Program Files/Git/bin/bash.exe",
+  //     // change encoding to UTF-8
+  //     "args": ["--login", "-i", "-c", "chcp.com 65001"]
+  //   }
+  // },
   //default terminal
   "terminal.integrated.defaultProfile.windows": "Command Prompt",
   "sonarlint.connectedMode.project": {
