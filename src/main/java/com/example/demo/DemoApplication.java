@@ -17,8 +17,7 @@ public class DemoApplication extends SpringBootServletInitializer {
     /**
      * 启动方法.
      * 
-     * @param args
-     *            命令行参数
+     * @param args 命令行参数
      */
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
@@ -27,8 +26,7 @@ public class DemoApplication extends SpringBootServletInitializer {
     /**
      * 配置启动类.
      * 
-     * @param application
-     *            SpringApplicationBuilder
+     * @param application SpringApplicationBuilder
      * @return SpringApplicationBuilder
      */
     @Override

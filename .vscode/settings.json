@@ -9,7 +9,7 @@
     "editor.detectIndentation": false
   },
   //java checkstyle configuration
-  "java.checkstyle.configuration": "checkstyle-checks.xml",
+  "java.checkstyle.configuration": "${workspaceFolder}\\checkstyle-checks.xml",
   //java checkstyle version
   "java.checkstyle.version": "10.21.2",
   //format on save
@@ -57,5 +57,7 @@
   "sonarlint.connectedMode.project": {
     "connectionId": "http://192.168.3.11:9000",
     "projectKey": "Springboot-Demo"
-  } // "PowerShell","Git Bash","Command Prompt"
+  }, // "PowerShell","Git Bash","Command Prompt"
+  "java.autobuild.enabled": true,
+  "java.import.generatesMetadataFilesAtProjectRoot":true
 }
