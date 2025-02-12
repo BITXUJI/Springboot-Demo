@@ -47,6 +47,21 @@ dependencies {
 	providedCompile 'org.springframework.boot:spring-boot-starter-actuator'
 	testImplementation 'org.mockito:mockito-core:5.15.2'  // newest version until 2025/02/01
 	testImplementation 'org.mockito:mockito-junit-jupiter:5.15.2' // newest version until 2025/02/01
+
+    // AWS BOM（Bill of Materials），manage AWS SDK versions as a whole 
+    implementation platform('software.amazon.awssdk:bom:2.30.17') //latest version until 2025/02/12
+
+    // introduce aws service as you wish, for example S3、DynamoDB、SNS、SQS etc
+    implementation 'software.amazon.awssdk:s3'
+	// implementation 'software.amazon.awssdk:aws-sdk-java'
+	// https://mvnrepository.com/artifact/software.amazon.awssdk/aws-sdk-java
+	implementation 'software.amazon.awssdk:aws-sdk-java:2.30.17' //latest version until 2025/02/12
+
+    implementation 'software.amazon.awssdk:dynamodb'
+    implementation 'software.amazon.awssdk:sqs'
+    // Testcontainers (used to run LocalStack in tests)
+    testImplementation 'org.testcontainers:junit-jupiter:1.20.4' //latest version until 2025/02/12
+    testImplementation 'org.testcontainers:localstack:1.20.4' //latest version until 2025/02/12
 }
 
 // Disable bootWar which is a executable war file
