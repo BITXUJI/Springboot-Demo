@@ -1,0 +1,35 @@
+pipeline {
+  agent { label 'docker-gradle8-jdk21-corretto' }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  triggers {
+        GenericTrigger(
+            genericVariables: [
+                [key: 'qualityGateStatus', value: '$.qualityGate.status']
+            ],
+            causeString: 'Triggered by SonarQube webhook',
+            token: 'yourTokenHere',
+            printPostContent: true,
+            silentResponse: false
+        )
+    }
+  stages {
+    // you need to set a url endwith generic-webhook-trigger in Administration -> Configuration -> Webhooks 
+    // to get the build status back to Jenkins
+    // secret is not required
+    //Example: http://your-jenkins-server:port/generic-webhook-trigger/invoke
+    stage("Quality Gate") {
+      steps {
+        script {
+            echo "Received Quality Gate Status: ${qualityGateStatus}"
+            if ("${qualityGateStatus}" == "OK") {
+                echo "Quality Gate Passed!"
+            } else {
+                error "Quality Gate Failed!"
+            }
+        }
+      }
+    }
+  }
+}
